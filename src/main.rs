@@ -78,7 +78,7 @@ fn setup_board(
         map_size: (20, 20),
         bomb_count: 40,
         tile_padding: 1.,
-        safe_start: true,
+        safe_start: false,
         ..Default::default()
     });
     commands.insert_resource(BoardAssets {
