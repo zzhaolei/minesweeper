@@ -2,7 +2,7 @@ use bevy::{log, prelude::*};
 #[cfg(feature = "debug")]
 use bevy_inspector_egui::WorldInspectorPlugin;
 use board_plugin::{
-    resources::{BoardAssets, BoardOptions, SpriteMaterial},
+    resources::{BoardAssets, BoardOptions, SpriteMaterial, TileSize},
     BoardPlugin,
 };
 
@@ -65,7 +65,7 @@ fn state_handler(mut state: ResMut<State<AppState>>, keys: Res<Input<KeyCode>>) 
                 state.push(AppState::Paused).unwrap();
             }
         }
-        _ => {}
+        _ => (),
     });
 }
 
@@ -74,11 +74,16 @@ fn setup_board(
     mut state: ResMut<State<AppState>>,
     asset_server: Res<AssetServer>,
 ) {
+    let size: u16 = 50;
     commands.insert_resource(BoardOptions {
-        map_size: (20, 20),
-        bomb_count: 40,
-        tile_padding: 1.,
+        map_size: (size, size),
+        bomb_count: size * 10,
+        tile_padding: 1.0,
         safe_start: false,
+        tile_size: TileSize::Adaptive {
+            min: 10.0,
+            max: 50.0,
+        },
         ..Default::default()
     });
     commands.insert_resource(BoardAssets {
