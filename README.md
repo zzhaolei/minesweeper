@@ -9,6 +9,14 @@
 cargo run --release
 ```
 
+## Cross Compile
+
+```shell
+# Ubuntu/Debian
+docker build . -t ubuntu_cross_compile -f Dockerfile
+docker run --rm -ti -v $(pwd):/app ubuntu_cross_compile
+```
+
 ## WebAssembly
 
 ```shell
